@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Modern color scheme with refined palette */
+  --background: 0 0% 100%;
+  --foreground: 222 47% 11%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  
+  /* Primary: Rich Blue */
+  --primary: 222 89% 55%;
+  --primary-foreground: 210 40% 98%;
+  
+  /* Secondary: Purple */
+  --secondary: 262 83% 58%;
+  --secondary-foreground: 210 40% 98%;
+  
+  /* Accent: Teal */
+  --accent: 173 80% 40%;
+  --accent-foreground: 210 40% 98%;
+  
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 222 89% 55%;
+  --radius: 0.5rem;
+  
+  /* Animation speeds */
+  --transition-slow: 0.7s;
+  --transition-medium: 0.4s;
+  --transition-fast: 0.2s;
+}
+
+.dark {
+  --background: 222 47% 11%;
+  --foreground: 210 40% 98%;
+  --muted: 217 33% 17%;
+  --muted-foreground: 215 20% 65%;
+  --popover: 222 47% 11%;
+  --popover-foreground: 210 40% 98%;
+  --card: 222 47% 11%;
+  --card-foreground: 210 40% 98%;
+  --border: 217 33% 17%;
+  --input: 217 33% 17%;
+  
+  /* Primary: Vibrant Blue */
+  --primary: 213 94% 68%;
+  --primary-foreground: 222 47% 11%;
+  
+  /* Secondary: Bright Purple */
+  --secondary: 262 83% 68%;
+  --secondary-foreground: 222 47% 11%;
+  
+  /* Accent: Bright Teal */
+  --accent: 173 80% 50%;
+  --accent-foreground: 222 47% 11%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 213 94% 68%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-['Poppins'] antialiased bg-background text-foreground;
+    transition: background-color var(--transition-medium), color var(--transition-medium);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['Inter'] font-bold;
+  }
+}
+
+@layer components {
+  /* Section animations */
+  .section-fade {
+    @apply opacity-0 translate-y-5 transition-all duration-700;
+  }
+  
+  .section-fade.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  /* Modern card styling with hover effects */
+  .project-card {
+    @apply transition-all duration-300 bg-card/50 backdrop-blur-sm border border-border/40 hover:border-primary/30 hover:shadow-md hover:shadow-primary/10;
+  }
+  
+  .project-card:hover {
+    @apply -translate-y-1;
+  }
+  
+  .project-details {
+    @apply max-h-0 overflow-hidden transition-all duration-500;
+  }
+  
+  .project-details.active {
+    @apply max-h-96;
+  }
+  
+  /* Navigation styling */
+  .nav-link {
+    @apply relative py-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-primary after:transition-all after:duration-300;
+  }
+  
+  .nav-link:hover, .nav-link.active {
+    @apply after:w-full text-primary;
+  }
+  
+  /* Typing animation */
+  .typed-cursor {
+    @apply animate-blink inline-block;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  .animate-blink {
+    animation: blink 1s infinite;
+  }
+  
+  /* Skill bars */
+  .skill-bar {
+    @apply h-2 rounded-full bg-muted overflow-hidden;
+  }
+  
+  .skill-progress {
+    @apply h-full bg-primary origin-left transform-gpu;
+    animation: skillProgress 1.5s ease-out forwards;
+    transform: scaleX(0);
+  }
+  
+  @keyframes skillProgress {
+    to { transform: scaleX(1); }
+  }
+  
+  /* Button hover effects */
+  .btn-hover-effect {
+    @apply relative overflow-hidden z-10 transition-all duration-300;
+  }
+  
+  .btn-hover-effect::before {
+    content: '';
+    @apply absolute inset-0 bg-primary/10 -z-10 transform scale-x-0 origin-left transition-transform duration-300;
+  }
+  
+  .btn-hover-effect:hover::before {
+    @apply scale-x-100;
+  }
+  
+  /* Animation delay utilities */
+  .animation-delay-500 {
+    animation-delay: 500ms;
+  }
+  
+  .animation-delay-1000 {
+    animation-delay: 1000ms;
+  }
+  
+  .animation-delay-1500 {
+    animation-delay: 1500ms;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
+  }
+  
+  /* Section styling */
+  .section-container {
+    @apply py-16 md:py-24 border-b border-border/30 last:border-0;
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-center mb-12 relative inline-block after:content-[''] after:absolute after:-bottom-3 after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-1 after:bg-primary;
+  }
+  
+  /* Card effect */
+  .glass-card {
+    @apply bg-white/10 dark:bg-black/10 backdrop-blur-md border border-white/20 dark:border-white/10 rounded-xl shadow-xl;
+  }
+  
+  /* Theme toggle animation */
+  .theme-toggle {
+    @apply relative transition-all duration-300 ease-in-out;
+  }
+  
+  .theme-toggle svg {
+    @apply transition-all duration-300 ease-in-out;
+  }
+  
+  .theme-toggle:hover svg {
+    @apply rotate-45 scale-110;
+  }
+}
